@@ -1,0 +1,15 @@
+# Agent Wallet Tool Dependencies
+# ================================
+# Core Solana dependencies
+solana>=0.30.0
+solders>=0.18.0
+spl-token>=0.3.0
+
+# Testing
+pytest>=7.0.0
+
+# Async support (for usdg_auto_claim)
+aiohttp>=3.9.0
+
+# Additional utilities
+python-dotenv>=1.0.0
