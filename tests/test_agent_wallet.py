@@ -6,6 +6,8 @@ import sys
 import os
 from unittest.mock import patch, MagicMock
 
+import pytest
+
 # Add parent to path for imports
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -162,6 +164,10 @@ class TestCryptoIdentity:
 class TestLiveIntegration:
     """Live integration tests - require solana CLI and network access."""
 
+    @pytest.mark.skipif(
+        os.getenv("AGENT_WALLET_RUN_LIVE_TESTS") != "1",
+        reason="set AGENT_WALLET_RUN_LIVE_TESTS=1 to run network-dependent wallet checks",
+    )
     def test_mainnet_balance(self):
         """Verify real mainnet balance for the agent wallet."""
         status = agent_wallet_status(network="mainnet")
@@ -169,6 +175,10 @@ class TestLiveIntegration:
         assert status.sol_balance > 0
         print(f"Mainnet: {status.summary()}")
 
+    @pytest.mark.skipif(
+        os.getenv("AGENT_WALLET_RUN_LIVE_TESTS") != "1",
+        reason="set AGENT_WALLET_RUN_LIVE_TESTS=1 to run network-dependent wallet checks",
+    )
     def test_devnet_balance(self):
         """Verify real devnet balance for the agent wallet."""
         status = agent_wallet_status(network="devnet")
